@@ -1,0 +1,13 @@
+server:
+  port: 8082
+database:
+  driver: mysql
+  host: "localhost"
+  port: 3306
+  username: "cerulean"
+  password: "cerulean"
+  name: "blog"
+cache:
+  address: "localhost:6379"
+  password: ""
+  database: 0
