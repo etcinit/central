@@ -5,9 +5,9 @@ database:
   driver: "mysql"
   host: "localhost"
   port: 3306
-  username: "cerulean"
-  password: "cerulean"
-  name: "blog"
+  username: "central"
+  password: "secret"
+  name: "central"
 influxdb:
   scheme: "http"
   host: "localhost"
