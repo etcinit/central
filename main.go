@@ -9,6 +9,7 @@ import (
 	"github.com/etcinit/central/database"
 	"github.com/facebookgo/inject"
 	"github.com/jacobstr/confer"
+	"github.com/kr/pretty"
 )
 
 func main() {
@@ -19,6 +20,7 @@ func main() {
 	config.SetDefault("database.file", ":memory:")
 	config.ReadPaths("config/main.yml", "config/main.production.yml")
 	config.AutomaticEnv()
+	pretty.Println(config.AllSettings())
 
 	// Next, we setup the dependency graph
 	// In this example, the graph won't have many nodes, but on more complex
