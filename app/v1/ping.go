@@ -39,6 +39,7 @@ func (p *PingController) postPing(c *gin.Context) {
 	}
 
 	c.JSON(200, gin.H{
-		"input": json,
+		"status": "success",
+		"input":  json,
 	})
 }
