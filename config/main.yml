@@ -1,12 +1,20 @@
 server:
   port: 8082
+  limit: 10000
 database:
-  driver: mysql
+  driver: "mysql"
   host: "localhost"
   port: 3306
   username: "cerulean"
   password: "cerulean"
   name: "blog"
+influxdb:
+  scheme: "http"
+  host: "localhost"
+  port: 8086
+  username: "root"
+  password: "root"
+  database: "central"
 cache:
   address: "localhost:6379"
   password: ""

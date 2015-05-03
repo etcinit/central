@@ -1,4 +1,4 @@
-package v1
+package requests
 
 // PingJSON contains the JSON input of a POST /v1/ping call.
 type PingJSON struct {
