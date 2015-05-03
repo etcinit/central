@@ -20,6 +20,7 @@ func main() {
 	config.SetDefault("database.file", ":memory:")
 	config.ReadPaths("config/main.yml", "config/main.production.yml")
 	config.AutomaticEnv()
+
 	pretty.Println(config.AllSettings())
 
 	// Next, we setup the dependency graph
