@@ -1,11 +1,11 @@
-package controllers
+package v1
 
 import (
 	"github.com/etcinit/central/app/applications"
 	"github.com/etcinit/central/app/documents"
+	"github.com/etcinit/central/app/responses"
 	"github.com/etcinit/central/database/models"
 	"github.com/gin-gonic/gin"
-	"github.com/kr/pretty"
 )
 
 // FetchController provides routes for fetching configuration.
@@ -21,7 +21,6 @@ func (f *FetchController) Register(r *gin.RouterGroup) {
 
 func (f *FetchController) getFetch(c *gin.Context) {
 	tokenRaw, err := c.Get("token")
-
 	if err != nil {
 		panic("Missing token")
 	}
@@ -29,27 +28,15 @@ func (f *FetchController) getFetch(c *gin.Context) {
 	token := tokenRaw.(*models.ApplicationToken)
 	application, err := f.ApplicationFinder.FindByToken(token)
 
-	pretty.Println(token)
-
 	if err != nil {
-		c.JSON(200, gin.H{
-			"status": "error",
-			"messages": []string{
-				"Unknown application",
-			},
-		})
+		responses.SendInvalidInputMessages(c, "Unknown application")
 		return
 	}
 
 	documents, err := f.DocumentFinder.FindAllByApplication(application)
 
 	if err != nil {
-		c.JSON(200, gin.H{
-			"status": "error",
-			"messages": []string{
-				"Error fetching files",
-			},
-		})
+		responses.SendInvalidInputMessages(c, "Unable to find any files")
 		return
 	}
 
