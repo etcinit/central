@@ -31,7 +31,7 @@ func (s *ConnectionsService) Make() *client.Client {
 		),
 	)
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 
 	conf := client.Config{
@@ -42,12 +42,12 @@ func (s *ConnectionsService) Make() *client.Client {
 
 	con, err := client.NewClient(conf)
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 
 	_, ver, err := con.Ping()
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 
 	log.Println("Connected to InfluxDB version:", ver)
