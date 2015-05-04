@@ -42,7 +42,11 @@ func (f *FetchController) getFetch(c *gin.Context) {
 
 	files := map[string]string{}
 	for _, document := range documents {
-		files[document.Alias] = document.Contents
+		if document.Alias != "" {
+			files[document.Alias] = document.Contents
+		} else {
+			files[document.Name] = document.Contents
+		}
 	}
 
 	c.JSON(200, gin.H{
