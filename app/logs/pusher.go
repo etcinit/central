@@ -25,9 +25,13 @@ func (p *Pusher) Push(entries []*entities.LogEntry) error {
 			points,
 			client.Point{
 				Name: "logs",
-				Fields: map[string]interface{}{
-					"instance_id": entry.InstanceID,
+				Tags: map[string]string{
 					"name":        entry.Name,
+					"instance_id": entry.InstanceID,
+				},
+				Fields: map[string]interface{}{
+					"name":        entry.Name,
+					"instance_id": entry.InstanceID,
 					"line":        entry.Line,
 				},
 				Timestamp: time.Now(),

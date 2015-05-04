@@ -23,6 +23,10 @@ func (p *Pusher) Push(ping *entities.Ping) error {
 		Points: []client.Point{
 			client.Point{
 				Name: "pings",
+				Tags: map[string]string{
+					"instance_id": ping.InstanceID,
+					"ip":          ping.IP,
+				},
 				Fields: map[string]interface{}{
 					"instance_id": ping.InstanceID,
 					"message":     ping.Message,

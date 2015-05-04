@@ -22,7 +22,7 @@ func (f *FrontController) getIndex(c *gin.Context) {
 		"messages": []string{
 			"Welcome to the Central API",
 		},
-		"version": "0.0.4",
+		"version": "0.0.5",
 	})
 }
 
