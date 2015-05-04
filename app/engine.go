@@ -28,13 +28,23 @@ func (e *EngineService) New() *gin.Engine {
 
 	// Setup some rate limits to avoid having one client overload the server.
 	redis := e.Cache.Make()
-	router.Use(
-		ginbump.RateLimit(
-			redis,
-			speedbump.PerMinuteHasher{},
-			int64(e.Config.GetInt("server.limit")),
-		),
-	)
+	if e.Config.GetBool("server.proxied") {
+		router.Use(
+			ginbump.RateLimitLB(
+				redis,
+				speedbump.PerMinuteHasher{},
+				int64(e.Config.GetInt("server.limit")),
+			),
+		)
+	} else {
+		router.Use(
+			ginbump.RateLimit(
+				redis,
+				speedbump.PerMinuteHasher{},
+				int64(e.Config.GetInt("server.limit")),
+			),
+		)
+	}
 
 	// Setup the main routes.
 	e.Front.Register(router)

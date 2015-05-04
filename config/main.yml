@@ -1,5 +1,6 @@
 server:
   port: 8082
+  proxied: false
   limit: 10000
 database:
   driver: "mysql"
