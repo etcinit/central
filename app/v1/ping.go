@@ -1,6 +1,8 @@
 package v1
 
 import (
+	"log"
+
 	"github.com/etcinit/central/app/pings"
 	"github.com/etcinit/central/app/responses"
 	"github.com/etcinit/central/app/v1/requests"
@@ -32,11 +34,14 @@ func (p *PingController) postPing(c *gin.Context) {
 	}
 
 	ping := p.Factory.MakeFromV1(c.Request, &json)
-	err := p.Pusher.Push(ping)
 
-	if err != nil {
-		panic(err)
-	}
+	go func() {
+		err := p.Pusher.Push(ping)
+
+		if err != nil {
+			log.Println(err)
+		}
+	}()
 
 	c.JSON(200, gin.H{
 		"status": "success",

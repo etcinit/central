@@ -1,6 +1,8 @@
 package v1
 
 import (
+	"log"
+
 	"github.com/etcinit/central/app/logs"
 	"github.com/etcinit/central/app/responses"
 	"github.com/etcinit/central/app/v1/requests"
@@ -32,11 +34,14 @@ func (l *LogsController) postLogs(c *gin.Context) {
 	}
 
 	entries := l.Factory.MakeFromV1(&json)
-	err := l.Pusher.Push(entries)
 
-	if err != nil {
-		panic(err)
-	}
+	go func() {
+		err := l.Pusher.Push(entries)
+
+		if err != nil {
+			log.Println(err)
+		}
+	}()
 
 	c.JSON(200, gin.H{
 		"status": "success",
